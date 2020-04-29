@@ -14,4 +14,9 @@ class Order extends Model
         'quantity',
         'status',
     ];
+
+    public function product()
+    {
+        return $this->hasOne(Product::class);
+    }
 }
