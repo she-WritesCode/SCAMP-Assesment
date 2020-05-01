@@ -3,22 +3,25 @@
 namespace App\Http\Controllers\Api\V1\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Products\ProductCollection;
+use App\Http\Resources\Products\ProductResource;
+use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of products.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return new ProductCollection(Product::with(['user', 'category', 'orders.user'])->paginate());
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new product.
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,7 +31,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created product in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -39,46 +42,48 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified product.
      *
-     * @param  int  $id
+     * @param  \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
+    {
+        ProductResource::withoutWrapping();
+
+        return new ProductResource($product);
+    }
+
+    /**
+     * Show the form for editing the specified product.
+     *
+     * @param  \App\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Product $product)
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified product in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified product from storage.
      *
-     * @param  int  $id
+     * @param  \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
         //
     }
