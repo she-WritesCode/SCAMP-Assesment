@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             ],
             'relationships' => new UserRelationshipResource($this),
             'links' => [
-                'self' => route('users.show', $this->id),
+                'self' => route('users.show', ['user'=>$this->id]),
             ]
         ];
     }

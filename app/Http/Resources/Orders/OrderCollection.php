@@ -14,6 +14,16 @@ class OrderCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return OrderResource::collection($this->collection);
+    }
+
+    public function with($request)
+    {
+
+        return [
+            'links'    => [
+                'self' => route('orders.index'),
+            ],
+        ];
     }
 }

@@ -11,6 +11,7 @@ class Order extends Model
     const STATUS_CANCELLED = 'cancelled';
     public $fillable = [
         'product_id',
+        'user_id',
         'quantity',
         'status',
     ];

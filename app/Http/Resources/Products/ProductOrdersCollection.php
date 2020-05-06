@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Products;
 
-use App\Http\Resources\Categories\CategoryIdentifierResource;
+use App\Http\Resources\Orders\OrderIdentifierResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ProductCategoryResource extends ResourceCollection
+class ProductOrdersCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,10 +18,10 @@ class ProductCategoryResource extends ResourceCollection
         $product = $this->additional['product'];
 
         return [
-            'data'  => CategoryIdentifierResource::collection($this->collection),
+            'data'  => OrderIdentifierResource::collection($this->collection),
             'links' => [
-                'self'    => route('products.relationships.categories', ['product' => $product->id]),
-                'related' => route('products.categories', ['product' => $product->id]),
+                'self'    => route('products.relationships.orders', ['product' => $product->id ?? $product]),
+                'related' => route('products.orders', ['product' => $product->id??$product]),
             ],
         ];
     }

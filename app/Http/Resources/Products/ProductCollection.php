@@ -28,38 +28,38 @@ class ProductCollection extends ResourceCollection
 
     public function with($request)
     {
-        $orders = $this->collection->flatMap(
-            function ($product) {
-                return $product->orders;
-            }
-        );
-        $users  = $this->collection->map(
-            function ($product) {
-                return $product->user;
-            }
-        );
+        // $orders = $this->collection->flatMap(
+        //     function ($product) {
+        //         return $product->orders;
+        //     }
+        // );
+        // $users  = $this->collection->map(
+        //     function ($product) {
+        //         return $product->user;
+        //     }
+        // );
 
-        $included = $users->merge($orders)->unique('id');
+        // $included = $users->merge($orders)->unique('id');
 
         return [
             'links'    => [
                 'self' => route('products.index'),
             ],
-            'included' => $this->withIncluded($included),
+            // 'included' => $this->withIncluded($included),
         ];
     }
 
     private function withIncluded(Collection $included)
     {
-        return $included->map(
-            function ($include) {
-                if ($include instanceof User) {
-                    return new UserResource($include);
-                }
-                if ($include instanceof Order) {
-                    return new OrderResource($include);
-                }
-            }
-        );
+        // return $included->map(
+        //     function ($include) {
+        //         if ($include instanceof User) {
+        //             return new UserResource($include);
+        //         }
+        //         if ($include instanceof Order) {
+        //             return new OrderResource($include);
+        //         }
+        //     }
+        // );
     }
 }

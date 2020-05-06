@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
 
         $models = ['product', 'role', 'user', 'order', 'permission', 'category'];
         $bread = ['browse', 'read', 'edit', 'add', 'delete'];
@@ -60,5 +59,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
         $user2->roles()->attach($salesperson);
+
+        $this->call(ProductsSeeder::class);
+        $this->call(OrderSeeder::class);
     }
+
 }

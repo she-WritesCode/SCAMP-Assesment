@@ -31,6 +31,7 @@ class ProductRelationshipResource extends JsonResource
                 ],
                 'data' => new CategoryIdentifierResource($this->category),
             ],
+            'orders' => (new ProductOrdersCollection($this->orders))->additional(['product' => $this]),
         ];
     }
 
