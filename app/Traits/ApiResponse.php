@@ -19,11 +19,11 @@ trait ApiResponse
 
     public function successResponse($message, $code)
     {
-        return response()->json(['success' => $message], $code);
+        return response()->json(['success' => $message, 'code' => $code], $code);
     }
 
     public function errorResponse($message, $code)
     {
-        return response()->json(['error' => $message], $code);
+        return response()->json(['error' => $message, 'code' => $code], $code);
     }
 }
