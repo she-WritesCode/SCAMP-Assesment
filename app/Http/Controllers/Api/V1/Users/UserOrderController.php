@@ -10,6 +10,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserOrderController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(Order::class, 'order');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Users;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\ApiController as Controller;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,9 +15,12 @@ class UserPermissionController extends Controller
      */
     public function index(User $user)
     {
-        $roles = $user->roles;
+        $permissions = collect([]);
+        foreach ($user->roles as $role) {
+            $permissions = $permissions->merge($role->permissions);
+        }
 
-        return $this->showAll($roles, 200);
+        return $this->showAll($permissions, 200);
     }
 
     /**

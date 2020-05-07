@@ -41,8 +41,8 @@ trait HasPermission
 
     public function hasPermissionThroughRole($permission)
     {
-        foreach ($permission->role as $role) {
-            if ($this->roles->contains('slug', $role)) {
+        foreach ($permission->roles as $role) {
+            if ($this->roles->contains('slug', $role->slug)) {
                 return true;
             }
         }

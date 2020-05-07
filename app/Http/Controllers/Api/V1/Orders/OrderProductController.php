@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Api\V1\Orders;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\ApiController as Controller;
 use App\Order;
 use Illuminate\Http\Request;
 
 class OrderProductController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(Order::class);
+    }
+
     /**
      * Display a listing of the resource.
      *

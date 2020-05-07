@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Api\V1\Permissions;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\ApiController as Controller;
 use App\Permission;
 use Illuminate\Http\Request;
 
 class PermissionUserController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(Permission::class);
+    }
+
     /**
      * Display a listing of the resource.
      *

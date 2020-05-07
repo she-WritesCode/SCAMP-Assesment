@@ -13,6 +13,9 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
+        // Category::truncate();
+        // Product::truncate();
+
         factory(Category::class, 10)->create();
         factory(Product::class, 500)->create();
     }

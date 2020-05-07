@@ -22,21 +22,21 @@ class UserRelationshipResource extends JsonResource
                 'data' => RoleIdentifierResource::collection($this->roles, 'roles'),
                 'links' => [
                     'self' => route('users.relationships.roles', $this->id),
-                    'related' => route('users.roles', $this->id),
+                    'related' => route('users.roles.index', $this->id),
                 ],
             ],
-            'products' =>[
-                'data' =>ProductIdentifierResource::collection($this->products, 'products'),
+            'products' => [
+                'data' => ProductIdentifierResource::collection($this->products, 'products'),
                 'links' => [
                     'self' => route('users.relationships.products', $this->id),
-                    'related' => route('users.products', $this->id),
+                    'related' => route('users.products.index', $this->id),
                 ],
             ],
             'orders' => [
                 'data' => OrderIdentifierResource::collection($this->orders ?? collect([]), 'orders'),
                 'links' => [
                     'self' => route('users.relationships.orders', $this->id),
-                    'related' => route('users.orders', $this->id),
+                    'related' => route('users.orders.index', $this->id),
                 ],
             ],
         ];

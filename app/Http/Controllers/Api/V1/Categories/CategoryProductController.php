@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CategoryProductController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(Category::class);
+    }
+
     /**
      * Display a listing of the resource.
      *

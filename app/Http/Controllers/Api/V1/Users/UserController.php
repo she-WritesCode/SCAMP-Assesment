@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Api\V1\Users;
 
 use App\Http\Controllers\Api\V1\ApiController;
-use App\Http\Resources\Users\UserCollection;
-use App\Http\Resources\Users\UserResource;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(User::class, 'user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,14 +37,18 @@ class UserController extends ApiController
             'name' => 'required|string|max:225',
             'email' => 'required|email|max:225|unique:users',
             'password' => 'required|confirmed|min:6',
+            'role_id' => 'nullable|integer',
         ];
 
         $request->validate($rules);
 
-        $data = $request->all();
+        $data = $request->all(['name', 'email', 'password']);
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
-        $user->roles()->attach(Role::where('slug', 'sales-person')->first()->id);
+
+        $role_id = $request->role_id ?: Role::where('slug', 'sales-person')->first()->id;
+
+        $user->roles()->attach($role_id);
 
         return $this->showOne($user, 201);
     }
@@ -104,6 +112,34 @@ class UserController extends ApiController
     {
         $user->delete();
 
-        return $this->successResponse(null, 204);
+        return $this->successResponse('user deleted successfully', 204);
     }
 }
+
+
+// public function create(Request $request)
+// {
+//     $rules = [
+//         'data.attributes.name' => 'required|string|max:225',
+//         'data.attributes.email' => 'required|email|max:225|unique:users',
+//         'data.attributes.password' => 'required|confirmed|min:6',
+//         'data.relationships.role[].id' => 'nullable|integer',
+//         'data.relationships.role[].type' => 'nullable|in:roles',
+//     ];
+
+//     $request->validate($rules);
+
+//     $data['name'] = $request->data['attributes']['name'];
+//     $data['email'] = $request->data['attributes']['email'];
+//     $data['password'] = bcrypt($request->data['attributes']['password']);
+//     $user = User::create($data);
+
+//     foreach ($request->data['relationships']['roles'] as $role) {
+//         $role_id[] = $role['id'];
+//     }
+//     $role_id = ($role_id == []) ? $role_id : Role::where('slug', 'sales-person')->first()->id;
+
+//     $user->roles()->attach($role_id);
+
+//     return $this->showOne($user, 201);
+// }

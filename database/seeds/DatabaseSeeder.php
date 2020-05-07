@@ -15,14 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // User::truncate();
+        // Role::truncate();
+        // Permission::truncate();
 
         $models = ['product', 'role', 'user', 'order', 'permission', 'category'];
-        $bread = ['browse', 'read', 'edit', 'add', 'delete'];
+        $bview = ['viewAny', 'view', 'create', 'update', 'delete'];
 
         $permissions = [];
 
         foreach ($models as $model) {
-            foreach ($bread as $action) {
+            foreach ($bview as $action) {
                 $permissions[$model][] = Permission::create([
                     'slug' => $model . '.' . $action,
                     'name' => Str::ucfirst($action) . ' ' . Str::ucfirst($model),
@@ -43,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Sales Person',
             'slug' => 'sales-person',
         ]);
-        $salespersonPermission = Permission::where('slug', 'order.browse')->orWhere('slug', 'order.read')->orWhere('slug', 'order.add')->orWhere('slug', 'product.browse')->orWhere('slug', 'product.read')->orWhere('slug', 'category.browse')->orWhere('slug', 'category.read')->get();
+        $salespersonPermission = Permission::where('slug', 'order.viewAny')->orWhere('slug', 'order.view')->orWhere('slug', 'order.update')->orWhere('slug', 'order.delete')->orWhere('slug', 'order.create')->orWhere('slug', 'product.viewAny')->orWhere('slug', 'product.view')->orWhere('slug', 'category.viewAny')->orWhere('slug', 'category.view')->get()->pluck('id');
         $salesperson->permissions()->attach($salespersonPermission);
 
         $user = User::create([
@@ -63,5 +66,4 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductsSeeder::class);
         $this->call(OrderSeeder::class);
     }
-
 }

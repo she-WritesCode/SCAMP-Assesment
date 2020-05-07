@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ProductOrderController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(Product::class);
+    }
+
     /**
      * Display a listing of the resource.
      *

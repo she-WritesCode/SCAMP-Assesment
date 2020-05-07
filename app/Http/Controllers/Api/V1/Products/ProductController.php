@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class ProductController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(Product::class, 'product');
+    }
+
     /**
      * Display a listing of products.
      *
@@ -19,5 +25,10 @@ class ProductController extends ApiController
     public function index()
     {
         return $this->showAll(Product::all(), 200);
+    }
+
+    public function show(Product $product)
+    {
+        return $this->showOne($product, 200);
     }
 }

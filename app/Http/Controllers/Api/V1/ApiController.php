@@ -8,10 +8,16 @@ use App\Traits\ApiResponse;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
     use ApiResponse;
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
     public function isUserAdmin(User $user, Model $model)
     {
