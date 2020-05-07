@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Users;
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Resources\Users\UserCollection;
 use App\Http\Resources\Users\UserResource;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,7 @@ class UserController extends ApiController
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
+        $user->roles()->attach(Role::where('slug', 'sales-person')->first()->id);
 
         return $this->showOne($user, 201);
     }
@@ -102,6 +104,6 @@ class UserController extends ApiController
     {
         $user->delete();
 
-        return $this->showOne($user, 200);
+        return $this->successResponse(null, 204);
     }
 }

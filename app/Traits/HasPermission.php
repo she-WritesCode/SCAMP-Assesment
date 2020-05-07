@@ -49,10 +49,19 @@ trait HasPermission
         return false;
     }
 
+    public function hasRole(...$roles)
+    {
+        foreach ($roles as $role) {
+            if ($this->roles->contains('slug', $role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function permissions()
     {
-        return $this->roles();
-        // return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(Permission::class);
     }
 
     public function roles()

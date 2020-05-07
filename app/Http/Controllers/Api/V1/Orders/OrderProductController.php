@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Api\V1\Orders;
 
-use App\Http\Controllers\Api\V1\ApiController;
-use App\Http\Resources\Orders\OrderCollection;
+use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Http\Request;
 
-class OrderController extends ApiController
+class OrderProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $order)
     {
-        return $this->showAll(Order::all(), 200);
+        return $this->showOne($order->product, 200);
     }
 }
