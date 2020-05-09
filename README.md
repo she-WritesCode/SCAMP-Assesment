@@ -1,6 +1,7 @@
 # Inventory Management System
 
-### Built for SCAMP Assesment
+Built for SCAMP Assesment.
+I am applying for the backend (laravel) track
 
 ## Objectives
 
@@ -31,4 +32,31 @@ The essense of this challenge is to understand the approach you take to:
 
 ## Technologies Used
 
+Laravel
+
 ## Setup Environment
+
+You need to have the following installed:
+
+-   PHP
+-   Composer
+-   MySQL Database
+
+#### Steps
+
+1. Clone the repository
+2. inside the project directory run composer install
+3. duplicate the .env.example file and save as .env
+4. update the .env with:
+
+-   the name of your database in DB_DATABASE
+-   your userame in DB_USERNAME
+-   your password in DB_PASSWORD
+
+'''txt
+
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD="secret"
+
+'''
